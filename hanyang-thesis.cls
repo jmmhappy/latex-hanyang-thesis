@@ -20,14 +20,35 @@
 
 % for chapter
 \RequirePackage[palatino]{quotchap}
-\definecolor{chaptergrey}{rgb}{0.6,0,0}
 \let\defaultchapter\chapter
 \def\chapter{\@ifstar{\defaultchapter*}{\nochapter}}
 \newcommand{\nochapter}[1]{\setstretch{1}\defaultchapter{#1}\setstretch{2.0}}
+\renewcommand*{\chapnumfont}{%
+    \usefont{T1}{\@defaultcnfont}{b}{n}\fontsize{20}{20}}
+
+\usepackage{tocloft}
+\titleformat*{\section}{\Large\centering}
+\renewcommand*{\thesection}{Section \arabic{section}. }
+\addtolength{\cftsecnumwidth}{25pt}
+
+\renewcommand{\contentsname}{Table of Contents}
+
+\renewcommand{\@makechapterhead}[1]{%
+  \chapterheadstartvskip%
+  {\size@chapter{\sectfont\raggedleft
+    \chapnumfont
+    {\centering
+      \ifnum \c@secnumdepth >\m@ne%
+      \if@mainmatter Chapter \thechapter. \hspace{0.5cm}%
+      \fi\fi
+      \nobreak}%
+    {\centering\advance\leftmargin10em\interlinepenalty\@M #1\par\par}}%
+  \nobreak\chapterheadendvskip}}
+
 
 % for font style
 \RequirePackage{xltxtra,xunicode}
-\RequirePackage{noto}
+%\RequirePackage{noto}
 
 % for Korean
 \RequirePackage{xeCJK}
@@ -40,7 +61,7 @@
 \RequirePackage{tocbibind}
 
 % Quoation
-\RequirePackage[palatino]{quotchap}
+%\RequirePackage[palatino]{quotchap}
 
 % Disallow page breaks at hyphens (this will give some underfull vbox's, so an alternative is to use \brokenpenalty=100 and manually search for and fix such page breaks)
 \brokenpenalty=100 % ref. Stanford PhD Thesis Class
@@ -70,8 +91,8 @@
 \def\firstreader#1{\gdef\@firstreader{#1}}
 \def\secondreader#1{\gdef\@secondreader{#1}}
 \def\thirdreader#1{\gdef\@thirdreader{#1}}
-\def\fourthreader#1{\gdef\@fourthreader{#1}}
-\def\fifthreader#1{\gdef\@fifthreader{#1}}
+%\def\fourthreader#1{\gdef\@fourthreader{#1}}
+%\def\fifthreader#1{\gdef\@fifthreader{#1}}
 
 \def\submitdate#1{\gdef\@submitdate{#1}}
 \def\@submitdate{\ifcase\the\month\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi \space \number\the\year}
@@ -110,7 +131,7 @@
         \null 
         \setFontToArnoPro % change a font style
         % \vspace{17.5mm}  \LARGE\uppercase{Thesis For The Degree of Doctor of Philosophy} \\
-        \vspace{20mm}  \LARGE\uppercase{Thesis For The Degree of Doctor of Philosophy} \\
+        \vspace{20mm}  \LARGE\uppercase{Thesis For The Degree of Master of Computer Science} \\
         \vspace{30mm}  \huge\expandafter{\@title} \\
         \vspace{\fill} \LARGE{\@author} \\
         \vspace{35mm}  \LARGE{Graduate School of Hanyang University} \\
@@ -127,10 +148,10 @@
         \null
         \setFontToArnoPro % change a font style
         % \vspace{12.5mm}  \LARGE\uppercase{Thesis For The Degree of Doctor of Philosophy} \\
-        \vspace{15mm}  \LARGE\uppercase{Thesis For The Degree of Doctor of Philosophy} \\
+        \vspace{15mm}  \LARGE\uppercase{Thesis For The Degree of Master of Computer Science} \\
         \vspace{20mm}  \huge{\@title} \\
         \vspace{\fill} \LARGE{Thesis Supervisor: \@principaladviser} \\
-        \vspace{15mm}  \hspace{15mm} \LARGE{A Thesis submitted to the graduate school of \\ Hanyang University in partial fulfillment of the requirements \\ for the degree of Doctor of Philosophy} \\
+        \vspace{15mm}  \hspace{15mm} \LARGE{A Thesis submitted to the graduate school of \\ Hanyang University in partial fulfillment of the requirements \\ for the degree of Master of Computer Science} \\
         \vspace{30mm}  \LARGE{\@author} \\
         \vspace{10mm}  \LARGE{\@submitdate} \\
         \vspace{10mm}  \LARGE{Department of \@dept} \\
@@ -155,15 +176,15 @@
         \null
         \setFontToArnoPro % change a font style
         % \vspace{22.5mm}  \LARGE{This thesis, written by \@author, \\ has been approved as a thesis for the Doctor of Philosophy.} \\
-        \vspace{25mm}  \LARGE{This thesis, written by \@author, \\ has been approved as a thesis for the Doctor of Philosophy.} \\
+        \vspace{25mm}  \LARGE{This thesis, written by \@author, \\ has been approved as a thesis for the Master of Computer Science.} \\
         \vspace{30mm}  \LARGE{\@submitdate} \\
         \vspace{25mm}
         \begin{tabular}{lr}
             \fontToArnoProDisplay{\textbf{\LARGE{Committee Chairman:}}} & \LARGE{\underline{\makebox[45mm][r]{\@firstreader}} \hspace{3mm}\fontToArnoProDisplay{(Signature)}} \\ \\
             \fontToArnoProDisplay{\textbf{\LARGE{Committee Member:}}} & \LARGE{\underline{\makebox[45mm][r]{\@secondreader}} \hspace{3mm}\fontToArnoProDisplay{(Signature)}} \\ \\
             \fontToArnoProDisplay{\textbf{\LARGE{Committee Member:}}} & \LARGE{\underline{\makebox[45mm][r]{\@thirdreader}} \hspace{3mm}\fontToArnoProDisplay{(Signature)}} \\ \\
-            \fontToArnoProDisplay{\textbf{\LARGE{Committee Member:}}} & \LARGE{\underline{\makebox[45mm][r]{\@fourthreader}} \hspace{3mm}\fontToArnoProDisplay{(Signature)}} \\ \\
-            \fontToArnoProDisplay{\textbf{\LARGE{Committee Member:}}} & \LARGE{\underline{\makebox[45mm][r]{\@fifthreader}} \hspace{3mm}\fontToArnoProDisplay{(Signature)}} \\
+%            \fontToArnoProDisplay{\textbf{\LARGE{Committee Member:}}} & \LARGE{\underline{\makebox[45mm][r]{\@fourthreader}} \hspace{3mm}\fontToArnoProDisplay{(Signature)}} \\ \\
+%            \fontToArnoProDisplay{\textbf{\LARGE{Committee Member:}}} & \LARGE{\underline{\makebox[45mm][r]{\@fifthreader}} \hspace{3mm}\fontToArnoProDisplay{(Signature)}} \\ \\
 		\end{tabular} \\
 		\vspace{\fill} \LARGE{Graduate School of Hanyang University} \\
 % 		\vspace{17.5mm}  \null
@@ -182,9 +203,9 @@
     \newpage}
 
 \def\abstractpage{
-    \chapter*{Abstract}
+    \chapter*{\uppercase{Abstract}}
     \begin{center}
-        \large{\@title}
+        \large\textbf{\@title}
     \end{center}
     \vspace{1mm}
     \begin{flushright}
@@ -210,6 +231,7 @@
         \rm % change a font style
         \pagenumbering{roman}
             \setstretch{1.6}
+            \centering
             \tableofcontents\newpage
             % \addcontentsline{toc}{chapter}{\listtablename}
             \listoftables\newpage
@@ -227,7 +249,7 @@
     \vspace*{\fill}\newpage}
     
 \def\acknowledgments{
-    \chapter*{Acknowledgments}
+    \chapter*{\uppercase{Acknowledgments}}
     \addcontentsline{toc}{chapter}{Acknowledgments}
 	\input{chapter/acknowledgments}
     \vspace*{\fill}\newpage}
