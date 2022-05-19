@@ -215,6 +215,7 @@
         Hanyang University \\
     \end{flushright}
     \addcontentsline{toc}{chapter}{Abstract}
+    \raggedright
     \input{chapter/abstracteng}
     \vspace*{\fill}\newpage}
 
